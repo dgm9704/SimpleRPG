@@ -3,7 +3,10 @@ extends KinematicBody2D
 # Player movement speed
 export var speed = 75
 
+# Player dragging flag
+var drag_enabled = false
 var last_direction = Vector2(0, 1)
+var attack_playing = false
 
 func _physics_process(delta):
 	# Get player input
@@ -17,10 +20,22 @@ func _physics_process(delta):
 	
 	# Apply movement
 	var movement = speed * direction * delta
+
+	# If dragging is enabled, use mouse position to calculate movement
+	if drag_enabled:
+		var new_position = get_global_mouse_position()
+		movement = new_position - position;
+		if movement.length() > (speed * delta):
+			movement = speed * delta * movement.normalized()
+	
+	if attack_playing:
+		movement = 0.3 * movement
+		
 	move_and_collide(movement)
 	
 	# Animate player based on direction
-	animates_player(direction)
+	if not attack_playing:
+		animates_player(direction)
 
 func animates_player(direction: Vector2):
 	
@@ -51,3 +66,25 @@ func get_animation_direction(direction: Vector2):
 	elif norm_direction.x >= 0.707:
 		return "right"
 	return "down"
+
+func _input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT:
+			drag_enabled = event.pressed
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and not event.pressed:
+			drag_enabled = false
+	if event.is_action_pressed("attack"):
+		attack_playing = true
+		var animation = get_animation_direction(last_direction) + "_attack"
+		$Sprite.play(animation)
+	elif event.is_action_pressed("fireball"):
+		attack_playing = true
+		var animation = get_animation_direction(last_direction) + "_fireball"
+		$Sprite.play(animation)
+
+
+func _on_Sprite_animation_finished():
+	attack_playing = false

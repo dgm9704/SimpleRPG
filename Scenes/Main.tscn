@@ -126,11 +126,13 @@ extents = Vector2( 5, 7 )
 [node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 160, 90 )
 z_index = 1
+input_pickable = true
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 2 )
 animation = "down_idle"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -153,3 +155,5 @@ tile_set = ExtResource( 3 )
 cell_size = Vector2( 8, 8 )
 format = 1
 tile_data = PoolIntArray( 3014658, 4, 0, 3014659, 4, 0, 3014660, 4, 0, 3014661, 4, 0, 3014662, 4, 0, 3014663, 4, 0, 3014664, 4, 0, 3014665, 4, 0, 3014669, 4, 0, 3014670, 4, 0, 3080207, 4, 0, 3080208, 4, 0, 3145730, 4, 0, 3145731, 4, 0, 3145732, 4, 0, 3145733, 4, 0, 3145734, 4, 0, 3145735, 4, 0, 3145736, 4, 0, 3145737, 4, 0, 3145745, 4, 0, 3211277, 4, 0, 3211281, 4, 0, 3276814, 4, 0, 3276815, 4, 0, 3276816, 4, 0 )
+
+[connection signal="animation_finished" from="Player/Sprite" to="Player" method="_on_Sprite_animation_finished"]
