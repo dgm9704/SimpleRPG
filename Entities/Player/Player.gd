@@ -142,3 +142,11 @@ func _input(event):
 
 func _on_Sprite_animation_finished():
 	attack_playing = false
+	
+func hit(damage):
+	health -= damage
+	emit_signal("player_stats_changed", self)
+	if health <= 0:
+		pass
+	else:
+		$AnimationPlayer.play("Hit")
