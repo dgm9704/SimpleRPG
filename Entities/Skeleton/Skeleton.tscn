@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Entities/Skeleton/skeleton_death_5.png" type="Texture" id=1]
 [ext_resource path="res://Entities/Skeleton/skeleton_death_1.png" type="Texture" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://Entities/Skeleton/skeleton_up_idle_2.png" type="Texture" id=28]
 [ext_resource path="res://Entities/Skeleton/skeleton_up_walk_1.png" type="Texture" id=29]
 [ext_resource path="res://Entities/Skeleton/skeleton_up_walk_2.png" type="Texture" id=30]
+[ext_resource path="res://Entities/Skeleton/Skeleton.gd" type="Script" id=31]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -108,6 +109,7 @@ animations = [ {
 extents = Vector2( 5, 7 )
 
 [node name="Skeleton" type="KinematicBody2D"]
+script = ExtResource( 31 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 z_index = 1
@@ -120,3 +122,5 @@ shape = SubResource( 2 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
 autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
