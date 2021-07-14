@@ -18,6 +18,11 @@ var drag_enabled = false
 var last_direction = Vector2(0, 1)
 var attack_playing = false
 
+# Attack variables
+var attack_cooldown_time = 1000
+var next_attack_time = 0
+var attack_damage = 30
+
 func _ready():
 	emit_signal("player_stats_changed", self)
 	
@@ -62,6 +67,10 @@ func _physics_process(delta):
 	# Animate player based on direction
 	if not attack_playing:
 		animates_player(direction)
+		
+	# Turn RayCast2D toward movement direction
+	if direction != Vector2.ZERO:
+		$RayCast2D.cast_to = direction.normalized() * 8
 
 func animates_player(direction: Vector2):
 	
@@ -113,6 +122,22 @@ func _input(event):
 			attack_playing = true
 			var animation = get_animation_direction(last_direction) + "_fireball"
 			$Sprite.play(animation)
+	if event.is_action_pressed("attack"):
+		# Check if player can attack
+		var now = OS.get_ticks_msec()
+		if now >= next_attack_time:
+			# What's the target?
+			var target = $RayCast2D.get_collider()
+			if target != null:
+				if target.name.find("Skeleton") >= 0:
+					# Skeleton hit!
+					target.hit(attack_damage)
+			# Play attack animation
+			attack_playing = true
+			var animation = get_animation_direction(last_direction) + "_attack"
+			$Sprite.play(animation)
+			# Add cooldown time to current time
+			next_attack_time = now + attack_cooldown_time
 
 
 func _on_Sprite_animation_finished():

@@ -15,6 +15,13 @@ var bounce_countdown = 0
 # Animation variables
 var other_animation_playing = false
 
+# Skeleton stats
+var health = 100
+var health_max = 100
+var health_regeneration = 1
+
+signal death
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_tree().root.get_node("Root/Player")
@@ -22,8 +29,9 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	# Regenerates health
+	health = min(health + health_regeneration * delta, health_max)
 
 func _physics_process(delta):
 	var movement = direction * speed * delta
@@ -95,4 +103,18 @@ func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "birth":
 		$AnimatedSprite.animation = "down_idle"
 		$Timer.start()
+	elif $AnimatedSprite.animation == "death":
+		get_tree().queue_delete(self)
 	other_animation_playing = false
+	
+func hit(damage):
+	health -= damage
+	if health > 0:
+		$AnimationPlayer.play("Hit")
+	else:
+		$Timer.stop()
+		direction = Vector2.ZERO
+		set_process(false)
+		other_animation_playing = true
+		$AnimatedSprite.play("death")
+		emit_signal("death")
