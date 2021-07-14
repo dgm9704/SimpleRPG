@@ -12,6 +12,8 @@ var direction : Vector2
 var last_direction = Vector2(0, 1)
 var bounce_countdown = 0
 
+# Animation variables
+var other_animation_playing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,6 +33,10 @@ func _physics_process(delta):
 	if collision != null and collision.collider.name != "Player":
 		direction = direction.rotated(rng.randf_range(PI/4, PI/2))
 		bounce_countdown = rng.randi_range(2, 5)
+		
+	# Animate skeleton based on direction
+	if not other_animation_playing:
+		animates_monster(direction)
 		
 func _on_Timer_timeout():
 	# Calculate the position of the player relative to the skeleton
@@ -54,3 +60,29 @@ func _on_Timer_timeout():
 	# Update bounce countdown
 	if bounce_countdown > 0:
 		bounce_countdown = bounce_countdown - 1
+		
+func get_animation_direction(direction: Vector2):
+	var norm_direction = direction.normalized()
+	if norm_direction.y >= 0.707:
+		return "down"
+	elif norm_direction.y <= -0.707:
+		return "up"
+	elif norm_direction.x <= -0.707:
+		return "left"
+	elif norm_direction.x >= 0.707:
+		return "right"
+	return "down"
+
+func animates_monster(direction: Vector2):
+	if direction != Vector2.ZERO:
+		last_direction = direction
+		
+		# Choose walk animation based on movement direction
+		var animation = get_animation_direction(last_direction) + "_walk"
+		
+		# Play the walk animation
+		$AnimatedSprite.play(animation)
+	else:
+		# Choose idle animation based on last movement direction and play it
+		var animation = get_animation_direction(last_direction) + "_idle"
+		$AnimatedSprite.play(animation)
