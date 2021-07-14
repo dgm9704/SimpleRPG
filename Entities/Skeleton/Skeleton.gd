@@ -50,6 +50,7 @@ func _process(delta):
 			# Add cooldown time to current time
 			next_attack_time = now + attack_cooldown_time
 
+
 func _physics_process(delta):
 	var movement = direction * speed * delta
 	
@@ -66,7 +67,8 @@ func _physics_process(delta):
 	# Turn RayCast2D toward movement direction
 	if direction != Vector2.ZERO:
 		$RayCast2D.cast_to = direction.normalized() * 16
-		
+
+
 func _on_Timer_timeout():
 	# Calculate the position of the player relative to the skeleton
 	var player_relative_position = player.position - position
@@ -89,7 +91,8 @@ func _on_Timer_timeout():
 	# Update bounce countdown
 	if bounce_countdown > 0:
 		bounce_countdown = bounce_countdown - 1
-		
+
+
 func get_animation_direction(direction: Vector2):
 	var norm_direction = direction.normalized()
 	if norm_direction.y >= 0.707:
@@ -101,6 +104,7 @@ func get_animation_direction(direction: Vector2):
 	elif norm_direction.x >= 0.707:
 		return "right"
 	return "down"
+
 
 func animates_monster(direction: Vector2):
 	if direction != Vector2.ZERO:
@@ -115,11 +119,13 @@ func animates_monster(direction: Vector2):
 		# Choose idle animation based on last movement direction and play it
 		var animation = get_animation_direction(last_direction) + "_idle"
 		$AnimatedSprite.play(animation)
-		
+
+
 func arise():
 	other_animation_playing = true
 	$AnimatedSprite.play("birth")
-	
+
+
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "birth":
 		$AnimatedSprite.animation = "down_idle"
@@ -127,7 +133,8 @@ func _on_AnimatedSprite_animation_finished():
 	elif $AnimatedSprite.animation == "death":
 		get_tree().queue_delete(self)
 	other_animation_playing = false
-	
+
+
 func hit(damage):
 	health -= damage
 	if health > 0:
@@ -139,6 +146,7 @@ func hit(damage):
 		other_animation_playing = true
 		$AnimatedSprite.play("death")
 		emit_signal("death")
+
 
 func _on_AnimatedSprite_frame_changed():
 	if $AnimatedSprite.animation.ends_with("_attack") and $AnimatedSprite.frame == 1:

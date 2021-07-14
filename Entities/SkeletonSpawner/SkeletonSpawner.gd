@@ -28,6 +28,7 @@ func _ready():
 		instance_skeleton()
 	skeleton_count = start_skeletons
 
+
 func instance_skeleton():
 	# Instance the skeleton scene and add it to the scene tree
 	var skeleton = skeleton_scene.instance()
@@ -44,7 +45,8 @@ func instance_skeleton():
 
 	# Play skeleton's birth animation
 	skeleton.arise()
-	
+
+
 func test_position(position : Vector2):
 	# Check if the cell type in this position is grass or sand
 	var cell_coord = tilemap.world_to_map(position)
@@ -59,15 +61,13 @@ func test_position(position : Vector2):
 	# If the two conditions are true, the position is valid
 	return grass_or_sand and no_trees
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 func _on_Timer_timeout():
 	# Every second, check if we need to instantiate a skeleton
 	if skeleton_count < max_skeletons:
 		instance_skeleton()
 		skeleton_count = skeleton_count + 1
-		
+
+
 func _on_Skeleton_death():
 	skeleton_count = skeleton_count - 1

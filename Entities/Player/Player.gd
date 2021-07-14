@@ -23,9 +23,11 @@ var attack_cooldown_time = 1000
 var next_attack_time = 0
 var attack_damage = 30
 
+
 func _ready():
 	emit_signal("player_stats_changed", self)
-	
+
+
 func _process(delta):
 	# Regenerates mana
 	var new_mana = min(mana + mana_regeneration * delta, mana_max)
@@ -38,7 +40,8 @@ func _process(delta):
 	if new_health != health:
 		health = new_health
 		emit_signal("player_stats_changed", self)
-			
+
+
 func _physics_process(delta):
 	# Get player input
 	var direction: Vector2
@@ -72,6 +75,7 @@ func _physics_process(delta):
 	if direction != Vector2.ZERO:
 		$RayCast2D.cast_to = direction.normalized() * 8
 
+
 func animates_player(direction: Vector2):
 	
 	if direction != Vector2.ZERO:
@@ -89,7 +93,8 @@ func animates_player(direction: Vector2):
 		# Choose idle animation based on last movement direction and play it
 		var animation = get_animation_direction(last_direction) + "_idle"
 		$Sprite.play(animation)
-		
+
+
 func get_animation_direction(direction: Vector2):
 	var norm_direction = direction.normalized()
 	if norm_direction.y >= 0.707:
@@ -102,10 +107,12 @@ func get_animation_direction(direction: Vector2):
 		return "right"
 	return "down"
 
+
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			drag_enabled = event.pressed
+
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -142,11 +149,13 @@ func _input(event):
 
 func _on_Sprite_animation_finished():
 	attack_playing = false
-	
+
+
 func hit(damage):
 	health -= damage
 	emit_signal("player_stats_changed", self)
 	if health <= 0:
-		pass
+		set_process(false)
+		$AnimationPlayer.play("Game Over")
 	else:
 		$AnimationPlayer.play("Hit")
