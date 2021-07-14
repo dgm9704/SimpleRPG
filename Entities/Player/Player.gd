@@ -3,6 +3,14 @@ extends KinematicBody2D
 # Player movement speed
 export var speed = 75
 
+# Player stats
+var health = 100
+var health_max = 100
+var health_regeneration = 1
+var mana = 100
+var mana_max = 100
+var mana_regeneration = 2
+
 # Player dragging flag
 var drag_enabled = false
 var last_direction = Vector2(0, 1)

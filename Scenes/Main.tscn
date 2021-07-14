@@ -35,7 +35,7 @@
 [ext_resource path="res://Entities/Player/player_up_walk_2.png" type="Texture" id=33]
 [ext_resource path="res://Entities/Player/player_up_walk_1.png" type="Texture" id=34]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 4 ), ExtResource( 10 ) ],
 "loop": true,
@@ -118,7 +118,7 @@ animations = [ {
 "speed": 7.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 5, 7 )
 
 [node name="Root" type="Node"]
@@ -130,13 +130,13 @@ input_pickable = true
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="Player"]
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 animation = "down_idle"
 frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -155,5 +155,22 @@ tile_set = ExtResource( 3 )
 cell_size = Vector2( 8, 8 )
 format = 1
 tile_data = PoolIntArray( 3014658, 4, 0, 3014659, 4, 0, 3014660, 4, 0, 3014661, 4, 0, 3014662, 4, 0, 3014663, 4, 0, 3014664, 4, 0, 3014665, 4, 0, 3014669, 4, 0, 3014670, 4, 0, 3080207, 4, 0, 3080208, 4, 0, 3145730, 4, 0, 3145731, 4, 0, 3145732, 4, 0, 3145733, 4, 0, 3145734, 4, 0, 3145735, 4, 0, 3145736, 4, 0, 3145737, 4, 0, 3145745, 4, 0, 3211277, 4, 0, 3211281, 4, 0, 3276814, 4, 0, 3276815, 4, 0, 3276816, 4, 0 )
+
+[node name="Health" type="ColorRect" parent="."]
+margin_left = 3.0
+margin_top = 158.0
+margin_right = 77.0
+margin_bottom = 167.0
+color = Color( 0, 0, 0, 0.627451 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bar" type="ColorRect" parent="Health"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 73.0
+margin_bottom = 8.0
+color = Color( 1, 0.196078, 0.196078, 1 )
 
 [connection signal="animation_finished" from="Player/Sprite" to="Player" method="_on_Sprite_animation_finished"]
