@@ -52,6 +52,16 @@ animations = [ {
 "name": "right_fireball",
 "speed": 7.0
 }, {
+"frames": [ ExtResource( 29 ), ExtResource( 31 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "up_fireball",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "down_fireball",
+"speed": 7.0
+}, {
 "frames": [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 4 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "down_walk",
@@ -111,22 +121,12 @@ animations = [ {
 "loop": true,
 "name": "left_attack",
 "speed": 7.0
-}, {
-"frames": [ ExtResource( 29 ), ExtResource( 31 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "up_fireball",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "down_fireball",
-"speed": 7.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 5, 7 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "Game Over"
 tracks/0/type = "value"
 tracks/0/path = NodePath("../CanvasLayer/GameOver:modulate")
@@ -141,8 +141,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Hit"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -186,8 +185,8 @@ enabled = true
 cast_to = Vector2( 0, 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
-"anims/Game Over" = SubResource( 4 )
-anims/Hit = SubResource( 3 )
+"anims/Game Over" = SubResource( 3 )
+anims/Hit = SubResource( 4 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
