@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Entities/Player/player_down_idle_2.png" type="Texture" id=1]
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=2]
@@ -45,6 +45,7 @@
 [ext_resource path="res://GUI/XP.gd" type="Script" id=43]
 [ext_resource path="res://GUI/health_bonus.png" type="Texture" id=44]
 [ext_resource path="res://GUI/mana_bonus.png" type="Texture" id=45]
+[ext_resource path="res://GUI/LevelPopup.gd" type="Script" id=46]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -175,6 +176,7 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 1 )
 animation = "down_idle"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -367,6 +369,10 @@ visible = true
 margin_right = 100.0
 margin_bottom = 50.0
 popup_exclusive = true
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/LevelPopup"]
 margin_right = 100.0
@@ -417,6 +423,7 @@ position = Vector2( 140, 91 )
 position = Vector2( 188, 91 )
 type = 1
 
+[connection signal="player_level_up" from="Player" to="CanvasLayer/LevelPopup" method="_on_Player_player_level_up"]
 [connection signal="player_stats_changed" from="Player" to="CanvasLayer/XP" method="_on_Player_player_stats_changed"]
 [connection signal="player_stats_changed" from="Player" to="CanvasLayer/Health" method="_on_Player_player_stats_changed"]
 [connection signal="player_stats_changed" from="Player" to="CanvasLayer/Mana" method="_on_Player_player_stats_changed"]
