@@ -5,6 +5,11 @@ signal player_stats_changed
 # Player movement speed
 export var speed = 75
 
+# Player inventory
+enum Potion { HEALTH, MANA }
+var health_potions = 0
+var mana_potions = 0
+
 # Player stats
 var health = 100
 var health_max = 100
@@ -177,3 +182,11 @@ func hit(damage):
 		$AnimationPlayer.play("Game Over")
 	else:
 		$AnimationPlayer.play("Hit")
+
+
+func add_potion(type):
+	if type == Potion.HEALTH:
+		health_potions = health_potions + 1
+	else:
+		mana_potions = mana_potions + 1
+	emit_signal("player_stats_changed", self)

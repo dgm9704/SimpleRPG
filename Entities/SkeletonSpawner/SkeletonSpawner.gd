@@ -71,3 +71,4 @@ func _on_Timer_timeout():
 
 func _on_Skeleton_death():
 	skeleton_count = skeleton_count - 1
+
