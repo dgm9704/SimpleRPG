@@ -94,14 +94,14 @@ animations = [ {
 "name": "left_attack",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 3 ) ],
-"loop": false,
-"name": "death",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ) ],
 "loop": false,
 "name": "birth",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "death",
 "speed": 7.0
 } ]
 

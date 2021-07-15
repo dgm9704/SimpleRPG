@@ -11,6 +11,9 @@ var health_potions = 0
 var mana_potions = 0
 
 # Player stats
+var xp = 0;
+var xp_next_level = 100;
+var level = 1;
 var health = 100
 var health_max = 100
 var health_regeneration = 1
@@ -198,4 +201,9 @@ func add_potion(type):
 		health_potions = health_potions + 1
 	else:
 		mana_potions = mana_potions + 1
+	emit_signal("player_stats_changed", self)
+
+
+func add_xp(value):
+	xp += value
 	emit_signal("player_stats_changed", self)
