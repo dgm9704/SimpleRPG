@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://Entities/Player/player_down_idle_2.png" type="Texture" id=1]
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=2]
@@ -46,29 +46,11 @@
 [ext_resource path="res://GUI/health_bonus.png" type="Texture" id=44]
 [ext_resource path="res://GUI/mana_bonus.png" type="Texture" id=45]
 [ext_resource path="res://GUI/LevelPopup.gd" type="Script" id=46]
+[ext_resource path="res://Entities/Fiona/Fiona.tscn" type="PackedScene" id=47]
+[ext_resource path="res://Entities/Necklace/Necklace.tscn" type="PackedScene" id=48]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 11 ), ExtResource( 21 ), ExtResource( 19 ) ],
-"loop": true,
-"name": "left_fireball",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 18 ), ExtResource( 23 ), ExtResource( 17 ) ],
-"loop": true,
-"name": "right_fireball",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 29 ), ExtResource( 31 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "up_fireball",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "down_fireball",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 4 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "down_walk",
@@ -128,6 +110,26 @@ animations = [ {
 "loop": true,
 "name": "left_attack",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 21 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "left_fireball",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 23 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "right_fireball",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 29 ), ExtResource( 31 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "up_fireball",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "down_fireball",
+"speed": 7.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -176,7 +178,6 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 1 )
 animation = "down_idle"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -423,10 +424,16 @@ position = Vector2( 140, 91 )
 position = Vector2( 188, 91 )
 type = 1
 
+[node name="Necklace" parent="." instance=ExtResource( 48 )]
+position = Vector2( 200, 100 )
+
+[node name="Fiona" parent="." instance=ExtResource( 47 )]
+position = Vector2( 100, 100 )
+
 [connection signal="player_level_up" from="Player" to="CanvasLayer/LevelPopup" method="_on_Player_player_level_up"]
 [connection signal="player_stats_changed" from="Player" to="CanvasLayer/XP" method="_on_Player_player_stats_changed"]
-[connection signal="player_stats_changed" from="Player" to="CanvasLayer/Health" method="_on_Player_player_stats_changed"]
-[connection signal="player_stats_changed" from="Player" to="CanvasLayer/Mana" method="_on_Player_player_stats_changed"]
-[connection signal="player_stats_changed" from="Player" to="CanvasLayer/ManaPotions" method="_on_Player_player_stats_changed"]
 [connection signal="player_stats_changed" from="Player" to="CanvasLayer/HealthPotions" method="_on_Player_player_stats_changed"]
+[connection signal="player_stats_changed" from="Player" to="CanvasLayer/Health" method="_on_Player_player_stats_changed"]
+[connection signal="player_stats_changed" from="Player" to="CanvasLayer/ManaPotions" method="_on_Player_player_stats_changed"]
+[connection signal="player_stats_changed" from="Player" to="CanvasLayer/Mana" method="_on_Player_player_stats_changed"]
 [connection signal="animation_finished" from="Player/Sprite" to="Player" method="_on_Sprite_animation_finished"]
