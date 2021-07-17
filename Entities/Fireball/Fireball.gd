@@ -21,6 +21,8 @@ func _on_Fireball_body_entered(body):
 	# Ignore collision with Player and Water
 	if body.name == "Player":
 		return
+	# Play explosion sound
+	$SoundExplosion.play()
 	
 	if body.name == "TileMap":
 		var cell_coord = tilemap.world_to_map(position)

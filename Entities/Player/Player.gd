@@ -148,6 +148,8 @@ func _input(event):
 			attack_playing = true
 			var animation = get_animation_direction(last_direction) + "_fireball"
 			$Sprite.play(animation)
+			# Play fireball sound
+			$SoundFireball.play()
 			# Add cooldown time to current time
 			next_fireball_time = now + fireball_cooldown_time
 	if event.is_action_pressed("attack"):

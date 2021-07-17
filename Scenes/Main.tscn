@@ -241,6 +241,8 @@ position = Vector2( -160, -90 )
 stream = ExtResource( 52 )
 volume_db = 6.0
 
+[node name="SoundFireball" type="AudioStreamPlayer2D" parent="Player"]
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 16, 16 )
