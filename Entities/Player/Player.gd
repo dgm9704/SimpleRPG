@@ -179,11 +179,15 @@ func _input(event):
 			health_potions = health_potions - 1
 			health = min(health + 50, health_max)
 			emit_signal("player_stats_changed", self)
+			# Play sound
+			$SoundObject.play()
 	elif event.is_action_pressed("drink_mana"):
 		if mana_potions > 0:
 			mana_potions = mana_potions - 1
 			mana = min(mana + 50, mana_max)
 			emit_signal("player_stats_changed", self)
+			# Play sound
+			$SoundObject.play()
 
 func _on_Sprite_animation_finished():
 	attack_playing = false
@@ -214,6 +218,8 @@ func add_potion(type):
 	else:
 		mana_potions = mana_potions + 1
 	emit_signal("player_stats_changed", self)
+	# Play sound
+	$SoundObject.play()
 
 
 func add_xp(value):
