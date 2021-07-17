@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://Entities/Player/player_down_idle_2.png" type="Texture" id=1]
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=2]
@@ -53,6 +53,7 @@
 [ext_resource path="res://Sounds/night-chip.ogg" type="AudioStream" id=51]
 [ext_resource path="res://Sounds/attack.wav" type="AudioStream" id=52]
 [ext_resource path="res://Sounds/object.wav" type="AudioStream" id=53]
+[ext_resource path="res://Sounds/level_up.wav" type="AudioStream" id=54]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -210,6 +211,7 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 1 )
 animation = "down_idle"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -469,6 +471,10 @@ custom_fonts/font = ExtResource( 37 )
 custom_colors/font_color = Color( 0.352941, 0.352941, 0.352941, 1 )
 text = "B"
 
+[node name="SoundLevelUp" type="AudioStreamPlayer" parent="CanvasLayer/LevelPopup"]
+stream = ExtResource( 54 )
+volume_db = 6.0
+
 [node name="DialoguePopup" type="Popup" parent="CanvasLayer"]
 pause_mode = 2
 visible = true
@@ -537,10 +543,10 @@ position = Vector2( 200, 100 )
 position = Vector2( 100, 100 )
 
 [connection signal="player_level_up" from="Player" to="CanvasLayer/LevelPopup" method="_on_Player_player_level_up"]
-[connection signal="player_stats_changed" from="Player" to="CanvasLayer/Health" method="_on_Player_player_stats_changed"]
 [connection signal="player_stats_changed" from="Player" to="CanvasLayer/Mana" method="_on_Player_player_stats_changed"]
+[connection signal="player_stats_changed" from="Player" to="CanvasLayer/ManaPotions" method="_on_Player_player_stats_changed"]
 [connection signal="player_stats_changed" from="Player" to="CanvasLayer/XP" method="_on_Player_player_stats_changed"]
 [connection signal="player_stats_changed" from="Player" to="CanvasLayer/HealthPotions" method="_on_Player_player_stats_changed"]
-[connection signal="player_stats_changed" from="Player" to="CanvasLayer/ManaPotions" method="_on_Player_player_stats_changed"]
+[connection signal="player_stats_changed" from="Player" to="CanvasLayer/Health" method="_on_Player_player_stats_changed"]
 [connection signal="animation_finished" from="Player/Sprite" to="Player" method="_on_Sprite_animation_finished"]
 [connection signal="animation_finished" from="CanvasLayer/DialoguePopup/AnimationPlayer" to="CanvasLayer/DialoguePopup" method="_on_AnimationPlayer_animation_finished"]
