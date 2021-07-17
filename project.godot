@@ -12,6 +12,7 @@ config_version=4
 
 config/name="SimpleRPG"
 run/main_scene="res://Scenes/Main.tscn"
+config/icon="res://simplerpg_icon.png"
 
 [display]
 
