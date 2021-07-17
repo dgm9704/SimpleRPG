@@ -529,6 +529,38 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/DialoguePopup"]
 anims/ShowDialogue = SubResource( 5 )
 
+[node name="MenuPopup" type="Popup" parent="CanvasLayer"]
+pause_mode = 2
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+popup_exclusive = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MenuPopup"]
+margin_left = 60.0
+margin_top = 40.0
+margin_right = 260.0
+margin_bottom = 140.0
+color = Color( 0.313726, 0.313726, 0.313726, 1 )
+
+[node name="Resume" type="ColorRect" parent="CanvasLayer/MenuPopup"]
+margin_left = 70.0
+margin_top = 50.0
+margin_right = 250.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="CanvasLayer/MenuPopup/Resume"]
+margin_right = 180.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 37 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "RESUME GAME"
+align = 1
+valign = 1
+__meta__ = {
+"_editor_description_": ""
+}
+
 [node name="Potion" parent="." instance=ExtResource( 40 )]
 position = Vector2( 140, 91 )
 
