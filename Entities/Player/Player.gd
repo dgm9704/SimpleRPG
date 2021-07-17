@@ -135,9 +135,35 @@ func _input(event):
 		if event.button_index == BUTTON_LEFT and not event.pressed:
 			drag_enabled = false
 	if event.is_action_pressed("attack"):
-		attack_playing = true
-		var animation = get_animation_direction(last_direction) + "_attack"
-		$Sprite.play(animation)
+		# Check if player can attack
+		var now = OS.get_ticks_msec()
+		if now >= next_attack_time:
+			# What's the target?
+			var target = $RayCast2D.get_collider()
+			if target != null:
+				if target.name.find("Skeleton") >= 0:
+					# Skeleton hit!
+					target.hit(attack_damage)
+				if target.is_in_group("NPCs"):
+					# Talk to NPC
+					target.talk()
+					return
+				if target.name == "Bed":
+					# Sleep
+					$AnimationPlayer.play("Sleep")
+					yield(get_tree().create_timer(1), "timeout")
+					health = health_max
+					mana = mana_max
+					emit_signal("player_stats_changed", self)
+					return
+			# Play attack animation
+			attack_playing = true
+			var animation = get_animation_direction(last_direction) + "_attack"
+			$Sprite.play(animation)
+			# Play attack sound
+			$SoundAttack.play()
+			# Add cooldown time to current time
+			next_attack_time = now + attack_cooldown_time
 	elif event.is_action_pressed("fireball"):
 		var now = OS.get_ticks_msec()
 		if mana >= 25 and now >= next_fireball_time:
