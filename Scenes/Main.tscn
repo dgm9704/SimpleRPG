@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://Entities/Player/player_down_idle_2.png" type="Texture" id=1]
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=2]
@@ -50,6 +50,8 @@
 [ext_resource path="res://Entities/Necklace/Necklace.tscn" type="PackedScene" id=48]
 [ext_resource path="res://GUI/DialogPopup.gd" type="Script" id=49]
 [ext_resource path="res://Sounds/mountain-trials.ogg" type="AudioStream" id=50]
+[ext_resource path="res://Sounds/night-chip.ogg" type="AudioStream" id=51]
+[ext_resource path="res://Sounds/attack.wav" type="AudioStream" id=52]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -230,6 +232,14 @@ pause_mode = 2
 stream = ExtResource( 50 )
 volume_db = -6.0
 autoplay = true
+
+[node name="MusicGameOver" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 51 )
+
+[node name="SoundAttack" type="AudioStreamPlayer2D" parent="Player"]
+position = Vector2( -160, -90 )
+stream = ExtResource( 52 )
+volume_db = 6.0
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )

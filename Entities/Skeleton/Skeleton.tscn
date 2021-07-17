@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Entities/Skeleton/skeleton_death_5.png" type="Texture" id=1]
 [ext_resource path="res://Entities/Skeleton/skeleton_death_1.png" type="Texture" id=2]
@@ -31,9 +31,15 @@
 [ext_resource path="res://Entities/Skeleton/skeleton_up_walk_1.png" type="Texture" id=29]
 [ext_resource path="res://Entities/Skeleton/skeleton_up_walk_2.png" type="Texture" id=30]
 [ext_resource path="res://Entities/Skeleton/Skeleton.gd" type="Script" id=31]
+[ext_resource path="res://Sounds/attack.wav" type="AudioStream" id=32]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "death",
+"speed": 7.0
+}, {
 "frames": [ ExtResource( 8 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "down_walk",
@@ -98,11 +104,6 @@ animations = [ {
 "loop": false,
 "name": "birth",
 "speed": 7.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 3 ) ],
-"loop": false,
-"name": "death",
-"speed": 7.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -144,6 +145,10 @@ anims/Hit = SubResource( 3 )
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 16 )
+
+[node name="SoundAttack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 32 )
+volume_db = 6.0
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]

@@ -168,6 +168,8 @@ func _input(event):
 			attack_playing = true
 			var animation = get_animation_direction(last_direction) + "_attack"
 			$Sprite.play(animation)
+			# Play attack sound
+			$SoundAttack.play()
 			# Add cooldown time to current time
 			next_attack_time = now + attack_cooldown_time
 	elif event.is_action_pressed("drink_health"):
@@ -198,6 +200,8 @@ func hit(damage):
 	if health <= 0:
 		set_process(false)
 		$AnimationPlayer.play("Game Over")
+		$Music.stop()
+		$MusicGameOver.play()
 	else:
 		$AnimationPlayer.play("Hit")
 

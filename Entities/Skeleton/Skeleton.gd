@@ -164,3 +164,5 @@ func _on_AnimatedSprite_frame_changed():
 		var target = $RayCast2D.get_collider()
 		if target != null and target.name == "Player" and player.health > 0:
 			player.hit(attack_damage)
+		# Play attack sound
+		$SoundAttack.play()
