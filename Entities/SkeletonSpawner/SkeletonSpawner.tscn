@@ -4,8 +4,9 @@
 
 [node name="SkeletonSpawner" type="Node2D"]
 script = ExtResource( 1 )
+max_skeletons = 0
+start_skeletons = 0
 
 [node name="Timer" type="Timer" parent="."]
-autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
