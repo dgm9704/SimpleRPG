@@ -35,10 +35,10 @@ func _input(event):
 		match selected_menu:
 			0:
 				# New game
-				get_tree().change_scene("res://Scenes/Main.tscn")
+				get_tree().change_scene("res://Scenes/Floor0.tscn")
 			1:
 				# Load game
-				var next_level_resource = load("res://Scenes/Main.tscn");
+				var next_level_resource = load("res://Scenes/Floor0.tscn");
 				var next_level = next_level_resource.instance()
 				next_level.load_saved_game = true
 				get_tree().root.call_deferred("add_child", next_level)

@@ -1,7 +1,7 @@
 extends Node
 
 
-var load_saved_game = false
+var load_saved_ = false
 
 
 func save():
