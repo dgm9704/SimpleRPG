@@ -54,6 +54,11 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 19 ), ExtResource( 24 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "right_fireball",
+"speed": 7.0
+}, {
 "frames": [ ExtResource( 3 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "down_walk",
@@ -112,11 +117,6 @@ animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "left_attack",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 19 ), ExtResource( 24 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "right_fireball",
 "speed": 7.0
 }, {
 "frames": [ ExtResource( 30 ), ExtResource( 32 ), ExtResource( 31 ) ],
@@ -223,7 +223,6 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 1 )
 animation = "down_idle"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]

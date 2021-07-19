@@ -53,3 +53,6 @@ func _input(event):
 		elif event.scancode == KEY_B:
 			set_process_input(false)
 			npc.talk("B")
+		elif event.scancode == KEY_C:
+			set_process_input(false)
+			npc.talk("C")

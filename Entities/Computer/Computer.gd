@@ -30,44 +30,48 @@ func talk(answer = ""):
 					dialoguePopup.answers = "[A] Try to fix it  [B] Leave it alone"
 					dialoguePopup.open()
 				1:
+					dialogue_state = 0
 					match answer:
 						"A":
-							dialogue_state = 0
 							repair_status = RepairStatus.STARTED
-							dialoguePopup.dialogue = "You have no idea how to proceed but try anyway"
+							dialoguePopup.dialogue = "You have no idea how to proceed but try anyway..."
 							dialoguePopup.answers = "[A] OK"
 							dialoguePopup.open()
 						"B":
-							dialogue_state = 0
 							dialoguePopup.close()
 		RepairStatus.STARTED:
 			match dialogue_state:
 				0: 
 					dialogue_state = 1
 					dialoguePopup.dialogue = "The screen glows blue at you."
-					dialoguePopup.answers = """[A] Press random keys [B] Turn it off and on again 
+					dialoguePopup.answers = """[A] Press random keys  [B] Turn it off and on again 
 					[C] Forget it"""
 					dialoguePopup.open()
 				1:
+					dialogue_state = 0
 					match answer:
 						"A": 
-							dialogue_state = 0
 							dialoguePopup.dialogue = "Nothing happens. You had no expectations, yet are still disappointed."
 							dialoguePopup.answers = "[A] OK"
 							dialoguePopup.open()
 						"B": 
 							repair_status = RepairStatus.COMPLETED
-							dialogue_state = 0
-							dialoguePopup.dialogue = """The computer takes forever to come back on.
+							dialoguePopup.dialogue = """The computer takes forever to come back on...
 							For some reason the screen is not blue anymore."""
 							dialoguePopup.answers = "[A] OK"
 							dialoguePopup.open()
-						"C": 
-							dialogue_state = 0
-							repair_status = RepairStatus.NOT_STARTED
+						"C":
+							repair_status = RepairStatus.NOT_STARTED 
 							dialoguePopup.close()
 		RepairStatus.COMPLETED:
 			match dialogue_state:
 				0:
+					dialogue_state = 1
 					dialoguePopup.dialogue = "You look at the screen, and smile just a little"
 					dialoguePopup.answers = "[A] OK"
+					dialoguePopup.open()
+				1:
+					dialogue_state = 0
+					match answer:
+						"A":
+							dialoguePopup.close()
