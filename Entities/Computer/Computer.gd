@@ -6,7 +6,7 @@ var repair_status = RepairStatus.NOT_STARTED
 var dialogue_state = 0
 var dialoguePopup
 var player
-
+var attack_damage = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,10 +51,12 @@ func talk(answer = ""):
 					dialogue_state = 0
 					match answer:
 						"A": 
+							player.hit(attack_damage)
 							dialoguePopup.dialogue = "Nothing happens. You had no expectations, yet are still disappointed."
 							dialoguePopup.answers = "[A] OK"
 							dialoguePopup.open()
 						"B": 
+							player.add_xp(50)
 							repair_status = RepairStatus.COMPLETED
 							dialoguePopup.dialogue = """The computer takes forever to come back on...
 							For some reason the screen is not blue anymore."""
