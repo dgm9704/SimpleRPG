@@ -4,7 +4,7 @@ extends StaticBody2D
 enum QuestStatus { NOT_STARTED, STARTED, COMPLETED }
 var quest_status = QuestStatus.NOT_STARTED
 var dialogue_state = 0
-var necklace_found = false
+var computer_fixed = false
 var dialoguePopup
 var player
 
@@ -13,11 +13,6 @@ enum Potion { HEALTH, MANA }
 func _ready():
 	dialoguePopup = get_tree().root.get_node("Root/CanvasLayer/DialoguePopup")
 	player = get_tree().root.get_node("Root/Player")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func talk(answer = ""):
@@ -36,7 +31,7 @@ func talk(answer = ""):
 					# Update dialogue tree state
 					dialogue_state = 1
 					# Show dialogue popup
-					dialoguePopup.dialogue = "Hello adventurer! I lost my necklace, can you find it for me?"
+					dialoguePopup.dialogue = "Hey temp, could you fix my computer?"
 					dialoguePopup.answers = "[A] Yes  [B] No"
 					dialoguePopup.open()
 				1:
@@ -45,14 +40,14 @@ func talk(answer = ""):
 							# Update dialogue tree state
 							dialogue_state = 2
 							# Show dialogue popup
-							dialoguePopup.dialogue = "Thank you!"
+							dialoguePopup.dialogue = "Thanks"
 							dialoguePopup.answers = "[A] Bye"
 							dialoguePopup.open()
 						"B":
 							# Update dialogue tree state
 							dialogue_state = 3
 							# Show dialogue popup
-							dialoguePopup.dialogue = "If you change your mind, you'll find me here."
+							dialoguePopup.dialogue = "Well nobody is going anywhere until it's fixed"
 							dialoguePopup.answers = "[A] Bye"
 							dialoguePopup.open()
 				2:
@@ -76,26 +71,26 @@ func talk(answer = ""):
 					# Update dialogue tree state
 					dialogue_state = 1
 					# Show dialogue popup
-					dialoguePopup.dialogue = "Did you find my necklace?"
-					if necklace_found:
+					dialoguePopup.dialogue = "Did you fix the computer?"
+					if computer_fixed:
 						dialoguePopup.answers = "[A] Yes  [B] No"
 					else:
 						dialoguePopup.answers = "[A] No"
 					dialoguePopup.open()
 				1:
-					if necklace_found and answer == "A":
+					if computer_fixed and answer == "A":
 						# Update dialogue tree state
 						dialogue_state = 2
 						# Show dialogue popup
-						dialoguePopup.dialogue = "You're my hero! Please take this potion as a sign of my gratitude!"
+						dialoguePopup.dialogue = "Gee thanks. Here's a keycard, go check if something else needs fixing."
 						dialoguePopup.answers = "[A] Thanks"
 						dialoguePopup.open()
 					else:
 						# Update dialogue tree state
 						dialogue_state = 3
 						# Show dialogue popup
-						dialoguePopup.dialogue = "Please, find it!"
-						dialoguePopup.answers = "[A] I will!"
+						dialoguePopup.dialogue = "Well, maybe you should go do it then?"
+						dialoguePopup.answers = "[A] OK"
 						dialoguePopup.open()
 				2:
 					# Update dialogue tree state
@@ -137,10 +132,10 @@ func talk(answer = ""):
 func to_dictionary():
 	return {
 		"quest_status" : quest_status,
-		"necklace_found" : necklace_found
+		"computer_fixed" : computer_fixed
 	}
 
 
 func from_dictionary(data):
-	necklace_found = data.necklace_found
+	computer_fixed = data.computer_fixed
 	quest_status = int(data.quest_status)
